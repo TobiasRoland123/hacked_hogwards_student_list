@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hacked Hogwards student list</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <div class="filter_container">
+        <div class="filter_options">
+          <div class="filter_buttons">
+            <select class="filter_select house_dropdrown">
+              <option value="">Filter by houses</option>
+              <option value="Gryffindor">Gryffindor</option>
+              <option value="Hufflepuff">Hufflepuff</option>
+              <option value="Ravenclaw">Ravenclaw</option>
+              <option value="Slytherin">Slytherin</option>
+            </select>
+            <select class="filter_select expelled_dropdrown">
+              <option value="">Filter by expelled</option>
+              <option value="true">Expelled</option>
+              <option value="false">Not expelled</option>
+            </select>
+            <select class="filter_select resposibillities_dropdrown">
+              <option value="">Filter by resposibillities</option>
+              <option value="prefect">Prefect</option>
+              <option value="inquisitorial squad">Inquisitorial squad</option>
+              <option value="prefect, inquisitorial squad">Prefect and inquisitorial squad</option>
+            </select>
+            <select class="filter_select blood_status_dropdrown">
+              <option value="">Filter by blood status</option>
+              <option value="pure">Pure</option>
+              <option value="half">Half</option>
+              <option value="muggleborn">Muggleborn</option>
+            </select>
+          </div>
+        </div>
+        <div class="list_info">
+          <div class="house_info">
+            <table class="house_info_table">
+              <thead>
+                <tr>
+                    <th colspan="1">House information</th>
+                </tr>
+                <tbody>
+                    <tr> <td>Gryffindor</td></tr>
+                    <tr> <td>Hufflepuff</td></tr>
+                    <tr> <td>Ravenclaw</td></tr>
+                    <tr> <td>Slytherin</td></tr>
+
+                   
+                </tbody>
+              </thead>
+            </table>
+          </div>
+          <div class="number_of_students">
+            <table class="number_of_students_table">
+                <thead>
+                    <tr>
+                        <th colspan="1">List information</th>
+                    </tr>
+                    <tbody>
+                        <tr> <td>Currently displayed</td></tr>
+                        <tr> <td>Expelled</td></tr>
+                        <tr> <td>Not Expelled</td></tr>
+
+                        
+                       
+                    </tbody>
+                  </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="student_list_table_container">
+        <table class="student_list_table">
+            <thead>
+                <tr>
+                <th colspan="8">The Student List</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+<td>Student Image</td>
+<td>First name</td>
+<td>Last name</td>
+<td>Middle name</td>
+<td>Age</td>
+<td>House</td>
+<td>Resposibillities</td>
+<td>Blood status</td>
+            </tr>
+                
+          
+   
+        </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+  <script src="script.js"></script>
+</html>
