@@ -46,6 +46,7 @@ function cleanStudentData(students) {
     cleanStudentNames(newStudent, student);
     cleanStudentsHouse(newStudent, student);
     cleanStudentGender(newStudent, student);
+    allStudents.push(newStudent);
   });
 
   //shows all students in the console
@@ -65,7 +66,7 @@ function cleanStudentNames(newStudent, student) {
   newStudent.nickName = getNickName(student);
 
   //   pushes all the information to the all students Array.
-  allStudents.push(newStudent);
+  return newStudent;
 }
 
 function getFirstName(student) {
@@ -125,7 +126,8 @@ function cleanStudentsHouse(newStudent, student) {
   student.house = student.house.trim();
 
   newStudent.house = getStudentHouse(student);
-  allStudents.push(newStudent);
+
+  return newStudent;
 }
 
 function getStudentHouse(student) {
@@ -140,7 +142,8 @@ function cleanStudentGender(newStudent, student) {
   student.gender = student.gender.trim();
 
   newStudent.gender = getStudentGender(student);
-  allStudents.push(newStudent);
+
+  return newStudent;
 }
 
 function getStudentGender(student) {
