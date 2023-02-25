@@ -82,12 +82,15 @@ function getFirstName(student) {
 
 function getLastName(student) {
   let studentLastName;
+  //   if (student.fullname.includes(" ")) {
+  //     studentLastName = student.fullname.substring(student.fullname.lastIndexOf(" ") + 1);
+
+  //     if (student.fullname.includes("-")) {
+  //       studentLastName = student.fullname.substring(student.fullname.lastIndexOf("-") + 1);
+  //     }
+
   if (student.fullname.includes(" ")) {
     studentLastName = student.fullname.substring(student.fullname.lastIndexOf(" ") + 1);
-
-    if (student.fullname.includes("-")) {
-      studentLastName = student.fullname.substring(student.fullname.lastIndexOf("-") + 1);
-    }
   } else {
     studentLastName = "unknown";
   }
