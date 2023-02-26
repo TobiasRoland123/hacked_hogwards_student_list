@@ -2,8 +2,10 @@
 
 // Global variables is created
 const studentJsonUrl = "https://petlatkea.dk/2021/hogwarts/students.json";
+const studentBloodStatusUrl = "https://petlatkea.dk/2021/hogwarts/families.json";
 
 let students;
+let studentsBloodStatus;
 
 const allStudents = new Array();
 
@@ -15,6 +17,7 @@ const Student = {
   image: "",
   house: "",
   gender: "",
+  bloodstatus: "",
 };
 
 // listens for all content to load, then calls function start
@@ -29,15 +32,18 @@ function start() {
 the value of the json file on the variable students */
 async function getData() {
   const respons = await fetch(studentJsonUrl);
+  const responsBlood = await fetch(studentBloodStatusUrl);
 
   students = await respons.json();
+  studentsBloodStatus = await responsBlood.json();
 
   //   calls the clean data function and gives the function the data from the students variable
-  cleanStudentData(students);
+  cleanStudentData(students, studentsBloodStatus);
 }
 
-function cleanStudentData(students) {
+function cleanStudentData(students, studentBloodStatus) {
   console.table(students);
+  console.log(`this is the first item in pure blood: ${studentBloodStatus.half[0]}`);
 
   /*Runs through each student and each time a "newStudent" is created.
   THen is starts to go through the data of the student   */
@@ -46,6 +52,7 @@ function cleanStudentData(students) {
     cleanStudentNames(newStudent, student);
     cleanStudentsHouse(newStudent, student);
     cleanStudentGender(newStudent, student);
+    // cleanBloodStatus(newStudent, student, studentBloodStatus);
     allStudents.push(newStudent);
   });
 
@@ -82,12 +89,6 @@ function getFirstName(student) {
 
 function getLastName(student) {
   let studentLastName;
-  //   if (student.fullname.includes(" ")) {
-  //     studentLastName = student.fullname.substring(student.fullname.lastIndexOf(" ") + 1);
-
-  //     if (student.fullname.includes("-")) {
-  //       studentLastName = student.fullname.substring(student.fullname.lastIndexOf("-") + 1);
-  //     }
 
   if (student.fullname.includes(" ")) {
     studentLastName = student.fullname.substring(student.fullname.lastIndexOf(" ") + 1);
@@ -151,4 +152,23 @@ function cleanStudentGender(newStudent, student) {
 
 function getStudentGender(student) {
   return `${student.gender[0].toUpperCase()}${student.gender.substring(1)}`;
+}
+
+function cleanBloodStatus(newStudent, student, studentBloodStatus) {
+  let studBloodStat;
+
+  newStudent.bloodStatus = checkBloodStatus(student, studentBloodStatus);
+  function checkBloodStatus(student, studentBloodStatus) {
+    console.log(newStudent.firstName);
+    if (studentBloodStatus.half.includes(newStudent.firstName) && studentBloodStatus.pure.includes(newStudent.firstName)) {
+      return `Half blood`;
+    } else if (studentBloodStatus.half.includes(newStudent.firstName)) {
+      return `Half blood`;
+    } else if (studentBloodStatus.pure.includes(newStudent.firstName)) {
+      return `Pure blood`;
+    } else {
+      return `Muggle`;
+    }
+  }
+  return newStudent;
 }
