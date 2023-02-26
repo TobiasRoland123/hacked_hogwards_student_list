@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Condensed", sans-serif;
+
+  scroll-behavior: smooth;
+}
+
+#student_list tbody tr:nth-child(2n + 1) td {
+  background-color: lightblue;
+  border-right: rgb(240, 249, 255) 1px dotted;
+}
+#student_list {
+  border-collapse: collapse;
+}
+#student_list tbody tr td {
+  padding: 4px;
+}

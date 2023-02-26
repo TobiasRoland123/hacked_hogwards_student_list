@@ -20,25 +20,16 @@
               <option value="Ravenclaw">Ravenclaw</option>
               <option value="Slytherin">Slytherin</option>
             </optgroup>
-
-
-              <optgroup label="Expelled or not">
-
-              <option value="true">Expelled</option>
-              <option value="false">Not expelled</option>
+            <optgroup label="Expelled or not">
+              <option value="expelled">Expelled</option>
+              <option value="notExpelled">Not expelled</option>
             </optgroup>
-
-
               <optgroup label="Resposibillities">
-
               <option value="prefect">Prefect</option>
               <option value="inquisitorial squad">Inquisitorial squad</option>
               <option value="prefect, inquisitorial squad">Prefect and inquisitorial squad</option>
               </optgroup>
-
-
               <optgroup label="Bloodstatus">
-
               <option value="pure">Pure</option>
               <option value="half">Half</option>
               <option value="muggleborn">Muggleborn</option>
@@ -57,9 +48,7 @@
                     <tr> <td>Gryffindor</td></tr>
                     <tr> <td>Hufflepuff</td></tr>
                     <tr> <td>Ravenclaw</td></tr>
-                    <tr> <td>Slytherin</td></tr>
-
-                   
+                    <tr> <td>Slytherin</td></tr>           
                 </tbody>
               </thead>
             </table>
@@ -74,9 +63,6 @@
                         <tr> <td>Currently displayed</td></tr>
                         <tr> <td>Expelled</td></tr>
                         <tr> <td>Not Expelled</td></tr>
-
-                        
-                       
                     </tbody>
                   </thead>
             </table>
@@ -84,30 +70,80 @@
         </div>
       </div>
       <div class="student_list_table_container">
-        <table class="student_list_table">
+        <table id="student_list">
             <thead>
-                <tr>
-                <th colspan="8">The Student List</th>
+                <tr id="sorting">
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="none">Student Image</th>
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="first_name">First name</th>
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="last_name">Last name</th>
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="middle_name">Middle name</th>
+
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="responsibilities">Resposibillities</th>
+                  <th colspan="1" data-action="sort" data-sort-direction="asc" data-sort="blood_status">Blood status</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-<td>Student Image</td>
-<td>First name</td>
-<td>Last name</td>
-<td>Middle name</td>
-<td>Age</td>
-<td>House</td>
-<td>Resposibillities</td>
-<td>Blood status</td>
-            </tr>
-                
-          
-   
-        </tbody>
+          <tr>
+            <td data-field="image" class="student_image">lol</td>
+            <td data-field="first_name" class="first_name">Harry</td>
+            <td data-field="last_name" class="last_name">Potter</td>
+            <td data-field="middle_name" class="middle_name">James</td>
+            <td data-field="house"  class="house">Gryffindor</td>
+            <td data-field="responsibilities"  class="responsibilities">quidistch</td>
+            <td  data-field="blood_status" class="blood_status">Pure</td>
+          </tr>    
+          <tr>
+            <td data-field="image" class="student_image">lol</td>
+            <td data-field="first_name" class="first_name">Harry</td>
+            <td data-field="last_name" class="last_name">Potter</td>
+            <td data-field="middle_name" class="middle_name">James</td>
+            <td data-field="house"  class="house">Gryffindor</td>
+            <td data-field="responsibilities"  class="responsibilities">quidistch</td>
+            <td  data-field="blood_status" class="blood_status">Pure</td>
+          </tr>    
+          <tr>
+            <td data-field="image" class="student_image">lol</td>
+            <td data-field="first_name" class="first_name">Harry</td>
+            <td data-field="last_name" class="last_name">Potter</td>
+            <td data-field="middle_name" class="middle_name">James</td>
+            <td data-field="house"  class="house">Gryffindor</td>
+            <td data-field="responsibilities"  class="responsibilities">quidistch</td>
+            <td  data-field="blood_status" class="blood_status">Pure</td>
+          </tr>    
+          <tr>
+            <td data-field="image" class="student_image">lol</td>
+            <td data-field="first_name" class="first_name">Harry</td>
+            <td data-field="last_name" class="last_name">Potter</td>
+            <td data-field="middle_name" class="middle_name">James</td>
+            <td data-field="house"  class="house">Gryffindor</td>
+            <td data-field="responsibilities"  class="responsibilities">quidistch</td>
+            <td  data-field="blood_status" class="blood_status">Pure</td>
+          </tr>    
+          <tr>
+            <td data-field="image" class="student_image">lol</td>
+            <td data-field="first_name" class="first_name">Harry</td>
+            <td data-field="last_name" class="last_name">Potter</td>
+            <td data-field="middle_name" class="middle_name">James</td>
+            <td data-field="house"  class="house">Gryffindor</td>
+            <td data-field="responsibilities"  class="responsibilities">quidistch</td>
+            <td  data-field="blood_status" class="blood_status">Pure</td>
+          </tr>    
+           </tbody>
         </table>
       </div>
     </section>
+    <template>
+      <tr>
+        <td data-field="image" class="student_image"></td>
+        <td data-field="first_name" class="first_name"></td>
+        <td data-field="last_name" class="last_name"></td>
+        <td data-field="middle_name" class="middle_name"></td>
+        <td data-field="house"  class="house"></td>
+        <td data-field="responsibilities"  class="responsibilities"></td>
+        <td  data-field="blood_status" class="blood_status"></td>
+      </tr>
+    </template>
   </body>
   <script src="script.js"></script>
 </html>
