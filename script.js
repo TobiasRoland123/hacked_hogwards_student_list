@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", start);
 // this function cals the getData function
 function start() {
   document.querySelectorAll("#filter_select optgroup option").forEach((option) => option.addEventListener("click", selectFilter));
+  document.querySelectorAll('[data-action="sort"]').forEach((button) => button.addEventListener("click", selectSort));
   getData();
 }
 
@@ -215,6 +216,58 @@ function displayStudent(student) {
 
   document.querySelector("#student_list").appendChild(clone);
 }
+/*A new list is build from the critiria from */
+function buildList() {
+  // Creates a veriable "currentList" and gives it the filtered value of allStudents
+  const currentList = filterList(allStudents);
+  const sortedList = sortlist(currentList);
+
+  // displays currentList
+  displayList(currentList);
+}
+
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  if (settings.sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else if (settings.sortDir === "desc") {
+    event.target.dataset.sortDirection = "asc";
+  }
+
+  setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
+}
+
+function sortlist(sortedList) {
+  let direction = 1;
+
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+
+  sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(elementA, elementB) {
+    if (elementA[settings.sortBy] < elementB[settings.sortBy]) {
+      return -1 * direction;
+    } else if (elementA[settings.sortBy] > elementB[settings.sortBy]) {
+      return 1 * direction;
+    } else {
+      return 0;
+    }
+  }
+
+  return sortedList;
+}
 
 /* this function sets the filter variable to the value og 
 the dropdown menu in the dom it also looks at the type of the option which is chosen, 
@@ -234,15 +287,6 @@ function setFilter(filter, filterType) {
 
   // build list is called.
   buildList();
-}
-
-/*A new list is build from the crytiria from */
-function buildList() {
-  // Creates a veriable "currentList" and gives it the filtered value of allStudents
-  let currentList = filterList(allStudents);
-
-  // displays currentList
-  displayList(currentList);
 }
 
 // this function decides which filter allStudents should be run through

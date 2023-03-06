@@ -18,10 +18,7 @@
   place-items: center;
   grid-gap: 1rem;
 }
-#student_list tbody tr td {
-  padding: 4px;
-}
 
-#student_list #sorting th {
-  padding: 0 1rem;
+.student_image {
+  max-width: 100%;
 }
