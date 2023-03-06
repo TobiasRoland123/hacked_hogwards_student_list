@@ -195,7 +195,7 @@ function cleanBloodStatus(newStudent, student, studentBloodStatus) {
   return newStudent;
 }
 function displayList(students) {
-  document.querySelector("#student_list tbody").innerHTML = "";
+  document.querySelector("#student_list").innerHTML = "";
 
   students.forEach(displayStudent);
 }
@@ -205,20 +205,19 @@ function displayStudent(student) {
   const clone = document.querySelector("#student_template").content.cloneNode(true);
 
   //set all the date for the student template clone
-  clone.querySelector("[data-field=image] img").src = "images/" + student.image + ".png";
+  clone.querySelector("[data-field=image]").src = "images/" + student.image + ".png";
   clone.querySelector("[data-field=first_name]").textContent = student.firstName;
-  clone.querySelector("[data-field=last_name]").textContent = student.lastName;
-  clone.querySelector("[data-field=middle_name]").textContent = student.middleName;
+  // clone.querySelector("[data-field=last_name]").textContent = student.lastName;
+  // clone.querySelector("[data-field=middle_name]").textContent = student.middleName;
   clone.querySelector("[data-field=house]").textContent = student.house;
   // clone.querySelector("[data-field=responsibilities]").textContent = student.re;
   // clone.querySelector("[data-field=blood_status]").textContent = student.type;
 
-  document.querySelector("#student_list tbody").appendChild(clone);
+  document.querySelector("#student_list").appendChild(clone);
 }
 
 /* this function sets the filter variable to the value og 
-the dropdown menu in the dom
- it also looks at the type of the option which is chosen, 
+the dropdown menu in the dom it also looks at the type of the option which is chosen, 
  so it knows if its house, bloodstatus and so on*/
 function selectFilter(event) {
   let filter = document.querySelector("#filter_select").value;

@@ -11,8 +11,12 @@
   background-color: lightblue;
   border-right: rgb(240, 249, 255) 1px dotted;
 }
+
 #student_list {
-  border-collapse: collapse;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  place-items: center;
+  grid-gap: 1rem;
 }
 #student_list tbody tr td {
   padding: 4px;
