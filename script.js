@@ -9,6 +9,13 @@ let studentsBloodStatus;
 
 const allStudents = new Array();
 
+const settings = {
+  filterBy: "all",
+  filterType: "",
+  sortBy: "name",
+  sortDir: "asc",
+};
+
 const Student = {
   firstName: "",
   lastName: "",
@@ -25,6 +32,7 @@ document.addEventListener("DOMContentLoaded", start);
 
 // this function cals the getData function
 function start() {
+  document.querySelectorAll("#filter_select optgroup option").forEach((option) => option.addEventListener("click", selectFilter));
   getData();
 }
 
@@ -39,11 +47,12 @@ async function getData() {
 
   //   calls the clean data function and gives the function the data from the students variable
   cleanStudentData(students, studentsBloodStatus);
+  displayList(allStudents);
 }
 
 function cleanStudentData(students, studentBloodStatus) {
-  console.table(students);
-  console.log(`this is the first item in pure blood: ${studentBloodStatus.half[0]}`);
+  // console.table(students);
+  // console.log(`this is the first item in pure blood: ${studentBloodStatus.half[0]}`);
 
   /*Runs through each student and each time a "newStudent" is created.
   THen is starts to go through the data of the student   */
@@ -57,7 +66,7 @@ function cleanStudentData(students, studentBloodStatus) {
   });
 
   //shows all students in the console
-  console.table(allStudents);
+  // console.table(allStudents);
 }
 //cleans all parts of student names, in smaller bites
 function cleanStudentNames(newStudent, student) {
@@ -171,4 +180,64 @@ function cleanBloodStatus(newStudent, student, studentBloodStatus) {
     }
   }
   return newStudent;
+}
+function displayList(students) {
+  document.querySelector("#student_list tbody").innerHTML = "";
+
+  students.forEach(displayStudent);
+}
+
+function displayStudent(student) {
+  // create a clone of student template
+  const clone = document.querySelector("#student_template").content.cloneNode(true);
+
+  //set all the date for the student template clone
+  // clone.querySelector("[data-field=image]").textContent = student.image;
+  clone.querySelector("[data-field=first_name]").textContent = student.firstName;
+  clone.querySelector("[data-field=last_name]").textContent = student.lastName;
+  clone.querySelector("[data-field=middle_name]").textContent = student.middleName;
+  clone.querySelector("[data-field=house]").textContent = student.house;
+  // clone.querySelector("[data-field=responsibilities]").textContent = student.re;
+  // clone.querySelector("[data-field=blood_status]").textContent = student.type;
+
+  document.querySelector("#student_list tbody").appendChild(clone);
+}
+
+function selectFilter(event) {
+  let filter = document.querySelector("#filter_select").value;
+  let filterType = this.dataset.type;
+
+  // console.log(`filter is: ${filter}`);
+  // console.log(`filter type is: ${filterType}`);
+  setFilter(filter, filterType);
+}
+
+function setFilter(filter, filterType) {
+  settings.filterBy = filter;
+  settings.filterType = filterType;
+
+  buildList();
+}
+
+function buildList() {
+  console.log(`settings.filterBy is: ${settings.filterBy}`);
+  console.log(settings.filterType);
+  let currentList = filterList(allStudents);
+
+  console.table(currentList);
+  displayList(currentList);
+}
+
+function filterList(filteredList) {
+  if (settings.filterType === "house") {
+    console.log("now filtering on house");
+
+    return allStudents.filter(filterHouse);
+  } else {
+    return allStudents;
+  }
+}
+
+function filterHouse(student) {
+  return student.house === settings.filterBy;
 }

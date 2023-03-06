@@ -11,18 +11,21 @@
     <section>
       <div class="filter_container">
         <div class="filter_options">
-          <div class="filter_buttons">
-            <select class="filter_select house_dropdrown">
-              <optgroup label="Houses">
-
-              <option value="Gryffindor">Gryffindor</option>
-              <option value="Hufflepuff">Hufflepuff</option>
-              <option value="Ravenclaw">Ravenclaw</option>
-              <option value="Slytherin">Slytherin</option>
+         
+            <select id="filter_select" >
+              <optgroup  label="Show all students">
+                <option data-type="all" value="all">All</option>
+              </optgroup>
+              <optgroup  label="Houses">
+                <option data-type="house" value="Hufflepuff">Hufflepuff</option>
+              <option data-type="house" value="Gryffindor">Gryffindor</option>
+              
+              <option data-type="house" value="Ravenclaw">Ravenclaw</option>
+              <option data-type="house" value="Slytherin">Slytherin</option>
             </optgroup>
             <optgroup label="Expelled or not">
-              <option value="expelled">Expelled</option>
-              <option value="notExpelled">Not expelled</option>
+              <option data-type="expelled" value="expelled">Expelled</option>
+              <option data-type="expelled" value="notExpelled">Not expelled</option>
             </optgroup>
               <optgroup label="Resposibillities">
               <option value="prefect">Prefect</option>
@@ -35,7 +38,9 @@
               <option value="muggleborn">Muggleborn</option>
             </optgroup>
             </select>
-          </div>
+          
+        </div>
+        <button id="tempButton">click to filter</button>
         </div>
         <div class="list_info">
           <div class="house_info">
@@ -133,7 +138,7 @@
         </table>
       </div>
     </section>
-    <template>
+    <template id="student_template">
       <tr>
         <td data-field="image" class="student_image"></td>
         <td data-field="first_name" class="first_name"></td>
