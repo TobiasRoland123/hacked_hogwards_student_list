@@ -25,6 +25,8 @@ const Student = {
   house: "",
   gender: "",
   bloodstatus: "",
+  responsibilities: "",
+  expelled: "",
 };
 
 // listens for all content to load, then calls function start
@@ -208,52 +210,75 @@ function displayStudent(student) {
   //set all the date for the student template clone
   clone.querySelector("[data-field=image]").src = "images/" + student.image + ".png";
   clone.querySelector("[data-field=first_name]").textContent = student.firstName;
-  // clone.querySelector("[data-field=last_name]").textContent = student.lastName;
-  // clone.querySelector("[data-field=middle_name]").textContent = student.middleName;
   clone.querySelector("[data-field=house]").textContent = student.house;
-  // clone.querySelector("[data-field=responsibilities]").textContent = student.re;
-  // clone.querySelector("[data-field=blood_status]").textContent = student.type;
+
+  clone.querySelector(".student").addEventListener("click", () => showDetails(student));
 
   document.querySelector("#student_list").appendChild(clone);
 }
+
+function showDetails(student) {
+  const popUp = document.querySelector("#popup");
+  popUp.style.display = "block";
+
+  popUp.querySelector("[data-field=image]").src = "images/" + student.image + ".png";
+  popUp.querySelector("[data-field=first_name]").textContent = student.firstName;
+  popUp.querySelector("[data-field=middle_name]").textContent = student.middleName;
+  popUp.querySelector("[data-field=last_name]").textContent = student.lastName;
+  popUp.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
+  popUp.querySelector("[data-field=blood_status]").textContent = student.bloodstatus;
+  popUp.querySelector("[data-field=responsibilities]").textContent = student.responsibilities;
+  popUp.querySelector("[data-field=expelled]").textContent = student.expelled;
+
+  popUp.querySelector('[data-action="close"]').addEventListener("click", () => (popUp.style.display = "none"));
+}
+
 /*A new list is build from the critiria from */
 function buildList() {
   // Creates a veriable "currentList" and gives it the filtered value of allStudents
   const currentList = filterList(allStudents);
+  // Creates variable "sortedList" and gives it the value of the sorted version of currentList
   const sortedList = sortlist(currentList);
 
   // displays currentList
   displayList(currentList);
 }
-
+// Here the the sortBy variable gets the value of the button that was pressed, and same with sortDir
 function selectSort(event) {
-  const sortBy = event.target.dataset.sort;
-  const sortDir = event.target.dataset.sortDirection;
-
+  // makes sure to change sorting direction everytime a button os pressed twice
   if (settings.sortDir === "asc") {
     event.target.dataset.sortDirection = "desc";
   } else if (settings.sortDir === "desc") {
     event.target.dataset.sortDirection = "asc";
   }
 
+  // sets sortBy and sortDir
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  // calls the setSort function with sortBy and sortDir as parameters
   setSort(sortBy, sortDir);
 }
 
+// sets settings.sortBy and settings.sortDir and then calls buildList
 function setSort(sortBy, sortDir) {
   settings.sortBy = sortBy;
   settings.sortDir = sortDir;
   buildList();
 }
 
+// sorts the list by settings.sortBy
 function sortlist(sortedList) {
   let direction = 1;
 
+  // controls which way list is sorted
   if (settings.sortDir === "desc") {
     direction = -1;
   } else {
     direction = 1;
   }
 
+  // gives sotedList the value of sortedList, after it has been through the sort function.
   sortedList = sortedList.sort(sortByProperty);
 
   function sortByProperty(elementA, elementB) {
@@ -266,6 +291,7 @@ function sortlist(sortedList) {
     }
   }
 
+  // returns the sotedList
   return sortedList;
 }
 
