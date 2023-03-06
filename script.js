@@ -61,7 +61,10 @@ function cleanStudentData(students, studentBloodStatus) {
     cleanStudentNames(newStudent, student);
     cleanStudentsHouse(newStudent, student);
     cleanStudentGender(newStudent, student);
+
+    cleanStudentImage(newStudent, student);
     // cleanBloodStatus(newStudent, student, studentBloodStatus);
+    console.log(newStudent.image);
     allStudents.push(newStudent);
   });
 
@@ -163,6 +166,16 @@ function getStudentGender(student) {
   return `${student.gender[0].toUpperCase()}${student.gender.substring(1)}`;
 }
 
+function cleanStudentImage(newStudent, student) {
+  newStudent.image = getStudentImage(newStudent);
+
+  return newStudent;
+}
+
+function getStudentImage(newStudent) {
+  return `${newStudent.lastName[0].toLowerCase()}${newStudent.lastName.substring(1)}_${newStudent.firstName[0].toLowerCase()}`;
+}
+
 function cleanBloodStatus(newStudent, student, studentBloodStatus) {
   let studBloodStat;
 
@@ -192,7 +205,7 @@ function displayStudent(student) {
   const clone = document.querySelector("#student_template").content.cloneNode(true);
 
   //set all the date for the student template clone
-  // clone.querySelector("[data-field=image]").textContent = student.image;
+  clone.querySelector("[data-field=image] img").src = "images/" + student.image + ".png";
   clone.querySelector("[data-field=first_name]").textContent = student.firstName;
   clone.querySelector("[data-field=last_name]").textContent = student.lastName;
   clone.querySelector("[data-field=middle_name]").textContent = student.middleName;
@@ -203,41 +216,51 @@ function displayStudent(student) {
   document.querySelector("#student_list tbody").appendChild(clone);
 }
 
+/* this function sets the filter variable to the value og 
+the dropdown menu in the dom
+ it also looks at the type of the option which is chosen, 
+ so it knows if its house, bloodstatus and so on*/
 function selectFilter(event) {
   let filter = document.querySelector("#filter_select").value;
   let filterType = this.dataset.type;
 
-  // console.log(`filter is: ${filter}`);
-  // console.log(`filter type is: ${filterType}`);
   setFilter(filter, filterType);
 }
 
+/* Sets the settings.filterBy and filterType to the values from the dropdown menu.
+The reason to use global variables is so the build list knows what filter is selcted*/
 function setFilter(filter, filterType) {
   settings.filterBy = filter;
   settings.filterType = filterType;
 
+  // build list is called.
   buildList();
 }
 
+/*A new list is build from the crytiria from */
 function buildList() {
-  console.log(`settings.filterBy is: ${settings.filterBy}`);
-  console.log(settings.filterType);
+  // Creates a veriable "currentList" and gives it the filtered value of allStudents
   let currentList = filterList(allStudents);
 
-  console.table(currentList);
+  // displays currentList
   displayList(currentList);
 }
 
+// this function decides which filter allStudents should be run through
 function filterList(filteredList) {
+  // if filtertype is equal to house run through house filter
   if (settings.filterType === "house") {
     console.log("now filtering on house");
 
     return allStudents.filter(filterHouse);
-  } else {
+  }
+  // if the studentType is none of the above then just return allStudents
+  else {
     return allStudents;
   }
 }
 
+// this function return only the students who belongs to the house equal to settings.filterBy
 function filterHouse(student) {
   return student.house === settings.filterBy;
 }
