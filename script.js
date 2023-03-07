@@ -64,7 +64,8 @@ function cleanStudentData(students, studentsBloodStatus) {
     cleanStudentGender(newStudent, student);
     cleanStudentImage(newStudent, student);
     cleanBloodStatus(newStudent, student, studentsBloodStatus);
-    console.log(`${newStudent.firstName} is: ${newStudent.bloodstatus}`);
+    // console.log(`${newStudent.firstName} is: ${newStudent.bloodstatus}`);
+    console.log(newStudent);
     allStudents.push(newStudent);
   });
 
@@ -191,15 +192,15 @@ function getStudentImage(newStudent) {
 function cleanBloodStatus(newStudent, student, studentsBloodStatus) {
   let studBloodStat;
 
-  newStudent.bloodstatus = checkBloodStatus(student, studentsBloodStatus);
+  newStudent.bloodstatus = checkBloodStatus(studentsBloodStatus);
 
-  function checkBloodStatus(student, studentsBloodStatus) {
+  function checkBloodStatus(studentsBloodStatus) {
     if (studentsBloodStatus.half.includes(newStudent.lastName) && studentsBloodStatus.pure.includes(newStudent.lastName)) {
-      return `Half blood`;
+      return `Half`;
     } else if (studentsBloodStatus.half.includes(newStudent.lastName)) {
-      return `Half blod`;
+      return `Half`;
     } else if (studentsBloodStatus.pure.includes(newStudent.lastName)) {
-      return `Pure blood`;
+      return `Pure`;
     } else {
       return `Muggle`;
     }
@@ -231,7 +232,7 @@ function showDetails(student) {
   const popUp = document.querySelector("#popup");
   popUp.style.display = "block";
 
-  popUp.querySelector("[data-field=image]").src = "images/" + student.image + ".png";
+  popUp.querySelector("[data-field=image]").src = "images/" + student.image;
   popUp.querySelector("[data-field=first_name]").textContent = student.firstName;
   popUp.querySelector("[data-field=middle_name]").textContent = student.middleName;
   popUp.querySelector("[data-field=last_name]").textContent = student.lastName;
@@ -326,20 +327,23 @@ function setFilter(filter, filterType) {
 }
 
 // this function decides which filter allStudents should be run through
-function filterList(filteredList) {
+function filterList() {
   // if filtertype is equal to house run through house filter
-  if (settings.filterType === "house") {
-    console.log("now filtering on house");
-
-    return allStudents.filter(filterHouse);
+  if (settings.filterType === "all") {
+    console.log(settings.filterBy);
+    return allStudents;
   }
   // if the studentType is none of the above then just return allStudents
   else {
-    return allStudents;
+    return allStudents.filter(filterStudents);
   }
 }
 
 // this function return only the students who belongs to the house equal to settings.filterBy
-function filterHouse(student) {
-  return student.house === settings.filterBy;
+function filterStudents(student) {
+  console.log(student.bloodstatus);
+  // this returns if student[settings.filterType] is equal to the value we want to filter by
+  /* because the student object doesn't have a settings property we need to use [] and 
+  put it inside of  that to choose the exact porperty*/
+  return student[`${settings.filterType}`] === settings.filterBy;
 }
