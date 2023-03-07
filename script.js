@@ -174,17 +174,20 @@ function getStudentGender(student) {
 }
 
 function cleanStudentImage(newStudent, student) {
-  newStudent.image = getStudentImage(newStudent);
+  if (newStudent.lastName === "Unknown") {
+    newStudent.image = `student_placeholder_image.jpg`;
+  } else {
+    newStudent.image = getStudentImage(newStudent);
+  }
 
   return newStudent;
 }
 
 function getStudentImage(newStudent) {
-  console.log(newStudent.lastName);
   if (newStudent.lastName === "Patil") {
-    return `${newStudent.lastName[0].toLowerCase()}${newStudent.lastName.substring(1)}_${newStudent.firstName.toLowerCase()}`;
+    return `${newStudent.lastName[0].toLowerCase()}${newStudent.lastName.substring(1)}_${newStudent.firstName.toLowerCase()}.png`;
   } else {
-    return `${newStudent.lastName.toLowerCase()}_${newStudent.firstName[0].toLowerCase()}`;
+    return `${newStudent.lastName.toLowerCase()}_${newStudent.firstName[0].toLowerCase()}.png`;
   }
 }
 
@@ -217,7 +220,7 @@ function displayStudent(student) {
   const clone = document.querySelector("#student_template").content.cloneNode(true);
 
   //set all the date for the student template clone
-  clone.querySelector("[data-field=image]").src = "images/" + student.image + ".png";
+  clone.querySelector("[data-field=image]").src = "images/" + student.image;
   clone.querySelector("[data-field=first_name]").textContent = student.firstName;
   clone.querySelector("[data-field=last_name]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
