@@ -67,7 +67,7 @@ function cleanStudentData(students, studentBloodStatus) {
 
     cleanStudentImage(newStudent, student);
     // cleanBloodStatus(newStudent, student, studentBloodStatus);
-    console.log(newStudent.image);
+
     allStudents.push(newStudent);
   });
 
@@ -107,6 +107,7 @@ function getLastName(student) {
 
   if (student.fullname.includes(" ")) {
     studentLastName = student.fullname.substring(student.fullname.lastIndexOf(" ") + 1);
+
     if (student.fullname.includes("-")) {
       studentLastName = student.fullname.substring(student.fullname.indexOf("-") + 1);
     }
@@ -179,7 +180,12 @@ function cleanStudentImage(newStudent, student) {
 }
 
 function getStudentImage(newStudent) {
-  return `${newStudent.lastName[0].toLowerCase()}${newStudent.lastName.substring(1)}_${newStudent.firstName[0].toLowerCase()}`;
+  console.log(newStudent.lastName);
+  if (newStudent.lastName === "Patil") {
+    return `${newStudent.lastName[0].toLowerCase()}${newStudent.lastName.substring(1)}_${newStudent.firstName.toLowerCase()}`;
+  } else {
+    return `${newStudent.lastName.toLowerCase()}_${newStudent.firstName[0].toLowerCase()}`;
+  }
 }
 
 function cleanBloodStatus(newStudent, student, studentBloodStatus) {
@@ -213,6 +219,7 @@ function displayStudent(student) {
   //set all the date for the student template clone
   clone.querySelector("[data-field=image]").src = "images/" + student.image + ".png";
   clone.querySelector("[data-field=first_name]").textContent = student.firstName;
+  clone.querySelector("[data-field=last_name]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
 
   clone.querySelector(".student").addEventListener("click", () => showDetails(student));
