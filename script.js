@@ -48,15 +48,13 @@ async function getData() {
   students = await respons.json();
   studentsBloodStatus = await responsBlood.json();
 
+  console.log(studentsBloodStatus);
   //   calls the clean data function and gives the function the data from the students variable
   cleanStudentData(students, studentsBloodStatus);
   displayList(allStudents);
 }
 
-function cleanStudentData(students, studentBloodStatus) {
-  // console.table(students);
-  // console.log(`this is the first item in pure blood: ${studentBloodStatus.half[0]}`);
-
+function cleanStudentData(students, studentsBloodStatus) {
   /*Runs through each student and each time a "newStudent" is created.
   THen is starts to go through the data of the student   */
   students.forEach((student) => {
@@ -64,10 +62,9 @@ function cleanStudentData(students, studentBloodStatus) {
     cleanStudentNames(newStudent, student);
     cleanStudentsHouse(newStudent, student);
     cleanStudentGender(newStudent, student);
-
     cleanStudentImage(newStudent, student);
-    // cleanBloodStatus(newStudent, student, studentBloodStatus);
-
+    cleanBloodStatus(newStudent, student, studentsBloodStatus);
+    console.log(`${newStudent.firstName} is: ${newStudent.bloodstatus}`);
     allStudents.push(newStudent);
   });
 
@@ -191,17 +188,17 @@ function getStudentImage(newStudent) {
   }
 }
 
-function cleanBloodStatus(newStudent, student, studentBloodStatus) {
+function cleanBloodStatus(newStudent, student, studentsBloodStatus) {
   let studBloodStat;
 
-  newStudent.bloodStatus = checkBloodStatus(student, studentBloodStatus);
-  function checkBloodStatus(student, studentBloodStatus) {
-    console.log(newStudent.firstName);
-    if (studentBloodStatus.half.includes(newStudent.firstName) && studentBloodStatus.pure.includes(newStudent.firstName)) {
+  newStudent.bloodstatus = checkBloodStatus(student, studentsBloodStatus);
+
+  function checkBloodStatus(student, studentsBloodStatus) {
+    if (studentsBloodStatus.half.includes(newStudent.lastName) && studentsBloodStatus.pure.includes(newStudent.lastName)) {
       return `Half blood`;
-    } else if (studentBloodStatus.half.includes(newStudent.firstName)) {
-      return `Half blood`;
-    } else if (studentBloodStatus.pure.includes(newStudent.firstName)) {
+    } else if (studentsBloodStatus.half.includes(newStudent.lastName)) {
+      return `Half blod`;
+    } else if (studentsBloodStatus.pure.includes(newStudent.lastName)) {
       return `Pure blood`;
     } else {
       return `Muggle`;
@@ -239,7 +236,7 @@ function showDetails(student) {
   popUp.querySelector("[data-field=middle_name]").textContent = student.middleName;
   popUp.querySelector("[data-field=last_name]").textContent = student.lastName;
   popUp.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
-  popUp.querySelector("[data-field=blood_status]").textContent = student.bloodstatus;
+  popUp.querySelector("[data-field=blood_status]").textContent = `Blood status: ${student.bloodstatus}`;
   popUp.querySelector("[data-field=responsibilities]").textContent = student.responsibilities;
   popUp.querySelector("[data-field=expelled]").textContent = student.expelled;
 
