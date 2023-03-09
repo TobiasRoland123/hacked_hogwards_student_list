@@ -7,6 +7,10 @@
   scroll-behavior: smooth;
 }
 
+main {
+  max-width: 1200px;
+}
+
 #student_list tbody tr:nth-child(2n + 1) td {
   background-color: lightblue;
   border-right: rgb(240, 249, 255) 1px dotted;
@@ -21,4 +25,104 @@
 
 .student_image {
   max-width: 100%;
+}
+
+#popup {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: scroll;
+}
+
+#popup article {
+  width: 100%;
+  height: 100%;
+
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  overflow: scroll;
+  scrollbar-width: none;
+  background-color: lightblue;
+}
+
+#popup button[data-action="close"] {
+  background: none;
+  border: none;
+  cursor: pointer;
+  grid-column: 2;
+  place-self: end;
+}
+
+#popup button[data-action="close"] .bar {
+  display: block;
+
+  width: 40px;
+  height: 4px;
+  border-radius: 20px;
+  margin: 8px 0 0 0;
+  margin-top: 8px;
+  transition: all 0.3s ease-in-out;
+  background-color: black;
+}
+#popup button[data-action="close"] .bar:nth-child(1) {
+  transform: translateY(0px) rotate(45deg);
+}
+#popup button[data-action="close"] .bar:nth-child(2) {
+  transform: translateY(-13px) rotate(-45deg);
+}
+
+#popup .student_image {
+  width: 70%;
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0 auto;
+}
+#popup .image_and_house {
+  display: grid;
+  width: 100%;
+}
+#popup .house_img {
+  grid-column: 1;
+  grid-row: 1;
+  width: 40%;
+  place-self: end;
+}
+
+#popup .names {
+  width: 100%;
+  display: flex;
+  gap: 0.3rem;
+  margin: 1rem 0;
+}
+
+#popup .names .names {
+  flex-wrap: wrap;
+}
+
+#popup .student_properties .blood {
+  width: 20%;
+}
+#popup .student_properties .blood img {
+  max-width: 100%;
+}
+
+@media (min-width: 700px) {
+  #popup .popup_article {
+    width: 80vw;
+    height: 60vh;
+    margin: 8rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 900px;
+  }
+  #popup button[data-action="close"] {
+    left: 83%;
+    top: 15%;
+  }
 }

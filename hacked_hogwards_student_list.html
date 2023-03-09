@@ -101,19 +101,51 @@
     </template>
 
     <div id="popup" style="display: none">
-      <button  data-action="close">close</button>
+      
       <article class="popup_article">
-        <img data-field="image" class="student_image" src="images/student_placeholder_image.jpg" alt="">
-        <h1 data-field="first_name" class="first_name">Harry Potter</h1>
-        <h2 data-field="middle_name" class="middle_name">James</h2>
-        <h2 data-field="last_name" class="last_name">Potter</h2>
+        <button  data-action="close">
+          <span class="bar"></span>
 
-        <p data-field="house"  class="house"></p>
-        <img data-field="house_img"  class="house_img" src="" alt="house img">
+          <span class="bar"></span>
+        </button>
 
-        <p data-field="blood_status" class="blood_status" ></p>
-        <p data-field="responsibilities" class="responsibilities" ></p>
-        <p data-field="expelled" class="expelled" ></p>
+
+
+          <div class="image_and_house"> 
+            <img data-field="image" class="student_image" src="images/student_placeholder_image.jpg" alt="">
+
+            <img data-field="house_img"  class="house_img" src="" alt="house img">
+
+        </div>
+        <div class="names"> 
+
+            <h1 data-field="first_name" class="first_name">Harry Potter</h1>
+            <h2 data-field="middle_name" class="middle_name">James</h2>
+            <h2 data-field="last_name" class="last_name">Potter</h2>
+            <p data-field="nick_name" class="nick_name"></p>
+        </div>
+
+<div class="student_properties">
+  <h2>Student properties</h2>
+  <div class="prefect"> 
+    <p data-field="prefect" class="prefect">Prefect: ?</p>
+    <button data-action="set_prefect" class="prefect">Toggle prefect</button>
+  </div>
+ 
+  <div class="blood">
+    <img data-field="blood_status" class="blood_status" src="" alt="blood status img">
+  </div>
+
+  <div class="expelled">
+    <p data-field="expelled" class="expelled">Expelled: ?</p>
+  </div>
+  
+
+        </div>
+       
+
+
+     
         
       </article>
     </div>

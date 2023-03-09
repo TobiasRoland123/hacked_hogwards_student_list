@@ -23,9 +23,11 @@ const Student = {
   nickName: "",
   image: "",
   house: "",
+  houseImg: "",
   gender: "",
   bloodstatus: "",
   responsibilities: "",
+  prefect: false,
   expelled: "",
 };
 
@@ -61,11 +63,13 @@ function cleanStudentData(students, studentsBloodStatus) {
     const newStudent = Object.create(Student);
     cleanStudentNames(newStudent, student);
     cleanStudentsHouse(newStudent, student);
+    cleanStudentsHouseImg(newStudent, student);
     cleanStudentGender(newStudent, student);
     cleanStudentImage(newStudent, student);
+
     cleanBloodStatus(newStudent, student, studentsBloodStatus);
     // console.log(`${newStudent.firstName} is: ${newStudent.bloodstatus}`);
-    console.log(newStudent);
+
     allStudents.push(newStudent);
   });
 
@@ -147,6 +151,12 @@ function cleanStudentsHouse(newStudent, student) {
   student.house = student.house.trim();
 
   newStudent.house = getStudentHouse(student);
+
+  return newStudent;
+}
+
+function cleanStudentsHouseImg(newStudent, student) {
+  newStudent.houseImg = `${newStudent.house}.svg`;
 
   return newStudent;
 }
@@ -236,11 +246,22 @@ function showDetails(student) {
   popUp.querySelector("[data-field=first_name]").textContent = student.firstName;
   popUp.querySelector("[data-field=middle_name]").textContent = student.middleName;
   popUp.querySelector("[data-field=last_name]").textContent = student.lastName;
-  popUp.querySelector("[data-field=house]").textContent = `House: ${student.house}`;
-  popUp.querySelector("[data-field=blood_status]").textContent = `Blood status: ${student.bloodstatus}`;
-  popUp.querySelector("[data-field=responsibilities]").textContent = student.responsibilities;
-  popUp.querySelector("[data-field=expelled]").textContent = student.expelled;
+  popUp.querySelector("[data-field=house_img]").src = `images/house_crests/${student.houseImg}`;
+  popUp.querySelector("[data-field=blood_status]").src = `images/bloodstatus_img/${student.bloodstatus}.png`;
+  // popUp.querySelector("[data-field=responsibilities]").textContent = student.responsibilities;
+  // popUp.querySelector("[data-field=expelled]").textContent = student.expelled;
 
+  popUp.querySelector('[data-action="set_prefect"]').addEventListener("click", clickPrefect);
+
+  // Make prefect
+  function clickPrefect() {
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakeAPrefect(student);
+    }
+    // buildList();
+  }
   popUp.querySelector('[data-action="close"]').addEventListener("click", () => (popUp.style.display = "none"));
 }
 
@@ -254,6 +275,40 @@ function buildList() {
   // displays currentList
   displayList(currentList);
 }
+
+// this function tries to make a prefect if it's possible
+function tryToMakeAPrefect(selectedStudent) {
+  const prefects = allStudents.filter((student) => student.prefect);
+  console.log(`these are the prefects: `, prefects);
+  const numberOfPrefects = prefects.length;
+  console.log(`number of prefects is: ${numberOfPrefects}`);
+  const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
+
+  // if there is another of same type
+  if (other !== undefined) {
+    console.log("there can be only one prefect of each house");
+    removeOther(other);
+  } else if (numberOfPrefects >= 2) {
+    console.log("there can be only be two prefects!");
+    removeAorB(prefects[0], prefects[1]);
+  } else {
+    makePrefect(selectedStudent);
+  }
+}
+
+function removeAorB(prefectA, prefectB) {
+  console.log(`you should remove ${prefectA.firstName} or ${prefectB.fullname}`);
+}
+
+function removeOther(other) {
+  console.log(`You should remove ${other.firstName}`);
+}
+
+function makePrefect(student) {
+  student.prefect = true;
+  console.log(`${student.firstName} prefect status is now:`, student.prefect);
+}
+
 // Here the the sortBy variable gets the value of the button that was pressed, and same with sortDir
 function selectSort(event) {
   // makes sure to change sorting direction everytime a button os pressed twice
@@ -341,7 +396,6 @@ function filterList() {
 
 // this function return only the students who belongs to the house equal to settings.filterBy
 function filterStudents(student) {
-  console.log(student.bloodstatus);
   // this returns if student[settings.filterType] is equal to the value we want to filter by
   /* because the student object doesn't have a settings property we need to use [] and 
   put it inside of  that to choose the exact porperty*/
