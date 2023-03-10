@@ -251,12 +251,16 @@ function showDetails(student) {
   popUp.querySelector("[data-field=blood_status]").src = `images/bloodstatus_img/${student.bloodstatus}.png`;
   popUp.querySelector("[data-field=expelled]").textContent = `Expelled status; ${checkIfExpelled(student)}`;
   popUp.querySelector("[data-field=prefect]").textContent = `Prefect status: ${checkIfPrefect(student)}`;
+  popUp.querySelector("[data-field=inquisitorial_squad]").textContent = `Repsonsebilyties: ${checkIfMember(student)}`;
 
   popUp.querySelector('[data-action="set_prefect"]').addEventListener("click", clickPrefect);
   popUp.querySelector('[data-action="expell_student"]').addEventListener("click", expellStudentClicked);
+  popUp.querySelector('[data-action="make_is_member"]').addEventListener("click", makeMemberClicked);
+
   popUp.querySelector('[data-action="close"]').addEventListener("click", () => {
     popUp.querySelector('[data-action="set_prefect"]').removeEventListener("click", clickPrefect);
     popUp.querySelector('[data-action="expell_student"]').removeEventListener("click", expellStudentClicked);
+    popUp.querySelector('[data-action="make_is_member"]').removeEventListener("click", makeMemberClicked);
     popUp.style.display = "none";
   });
 
@@ -274,6 +278,15 @@ function showDetails(student) {
 
     popUp.querySelector("[data-field=expelled]").textContent = `Expelled status; ${checkIfExpelled(student)}`;
   }
+
+  function makeMemberClicked() {
+    if (student.responsibilities === "Inquisitorial Squad") {
+      student.responsibilities = "No responsibilities";
+    } else {
+      tryToMakeStudentMember(student);
+    }
+    popUp.querySelector("[data-field=inquisitorial_squad]").textContent = `Repsonsebilyties: ${checkIfMember(student)}`;
+  }
 }
 
 function expellStudent(student) {
@@ -285,6 +298,29 @@ function expellStudent(student) {
 
 function addToExpelledAndRemoveFromAll(student) {
   expelledStudents.push(allStudents.shift(student));
+}
+
+function tryToMakeStudentMember(student) {
+  if (student.bloodstatus === "Pure" || student.house === "Slytherin") {
+    makeMemberOfInquisitorialSquad(student);
+  } else {
+    tellWhyStudentCannotBeMember(student);
+  }
+}
+
+function makeMemberOfInquisitorialSquad(student) {
+  student.responsibilities = "Inquisitorial Squad";
+}
+
+function tellWhyStudentCannotBeMember(student) {
+  document.querySelector("#cannotBeMember").classList.add("show");
+  document.querySelector("#cannotBeMember .closebutton").addEventListener("click", closeDigalog);
+  document.querySelector("#cannotBeMember .student1_name").textContent = student.firstName;
+
+  function closeDigalog() {
+    document.querySelector("#cannotBeMember").classList.remove("show");
+    document.querySelector("#cannotBeMember .closebutton").removeEventListener("click", closeDigalog);
+  }
 }
 
 // function removeFromList(student){
@@ -466,5 +502,13 @@ function checkIfExpelled(student) {
     return `True`;
   } else {
     return `False`;
+  }
+}
+
+function checkIfMember(student) {
+  if (student.responsibilities === "Inquisitorial Squad") {
+    return `Inquisitorial Squad`;
+  } else {
+    return `No responsibilities`;
   }
 }

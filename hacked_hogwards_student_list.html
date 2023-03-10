@@ -28,9 +28,9 @@
               <option data-type="all" value="false">Not expelled</option>
             </optgroup>
               <optgroup label="Resposibillities">
-              <option value="prefect">Prefect</option>
-              <option value="inquisitorial squad">Inquisitorial squad</option>
-              <option value="prefect, inquisitorial squad">Prefect and inquisitorial squad</option>
+              <option data-type="responsibilities" value="prefect">Prefect</option>
+              <option data-type="responsibilities" value="Inquisitorial Squad">Inquisitorial squad</option>
+              <option data-type="responsibilities" value="prefect, inquisitorial squad">Prefect and inquisitorial squad</option>
               </optgroup>
               <optgroup label="Bloodstatus">
               <option data-type="bloodstatus" value="Pure">Pure</option>
@@ -133,17 +133,21 @@
               <button data-action="set_prefect" class="prefect">Toggle prefect</button>
             </div>
  
-        <div class="blood">
-          <img data-field="blood_status" class="blood_status" src="" alt="blood status img">
-        </div>
+            <div class="blood">
+              <img data-field="blood_status" class="blood_status" src="" alt="blood status img">
+            </div>
 
-        <div class="expelled">
-          <p data-field="expelled" class="expelled">Expelled: ?</p>
-          <button data-action="expell_student" class="expell">Expell student</button>
+            <div class="expelled">
+              <p data-field="expelled" class="expelled">Expelled: ?</p>
+              <button data-action="expell_student" class="expell">Expell student</button>
 
-        </div>
+            </div>
         
-        
+            <div class="inquisitorial_squad">
+              <p data-field="inquisitorial_squad" class="inquisitorial_squad">Inquisitorial Squad member?</p>
+              <button data-action="make_is_member" class="make_is_member">Make member</button>
+
+            </div>
 
 
           </div>
@@ -158,6 +162,14 @@
         <h1>You can only have one Prefect of each gender from each house</h1>
         <h2>Remove the other if you want to appoint a new one</h2>
         <p><button data-action="remove1">remove</button> <span class="student1">NAME, the HOUSE</span></p>
+      </div>
+    </div>
+
+    <div id="cannotBeMember" class="dialog">
+      <div class="dialogcontent">
+        <button class="closebutton">close</button>
+        <h1><span class="student1_name">NAME</span> cannot be a member</h1>
+        <h2>To become member you must be Pure blood or from Slytherin</h2>
       </div>
     </div>
  

@@ -1,14 +1,13 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="hiCADyEvp8pIPK3VhHsj">
-        <mxGraphModel dx="506" dy="633" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1840" dy="791" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="3" value="" style="edgeStyle=none;html=1;" parent="1" source="19OdqnBNTCK-ONiWcg15-1" target="2" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="19OdqnBNTCK-ONiWcg15-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-                    <mxGeometry x="384" y="30" width="60" height="60" as="geometry"/>
+                <mxCell id="3" value="" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="16" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414" y="90" as="sourcePoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="5" value="" style="edgeStyle=none;html=1;" parent="1" source="2" target="4" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -21,23 +20,90 @@
                 <mxCell id="2" value="expellStudentClicked" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="354" y="170" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="" style="edgeStyle=none;html=1;" parent="1" source="4" target="6" edge="1">
+                <mxCell id="7" value="" style="edgeStyle=none;html=1;startArrow=none;" parent="1" source="10" target="6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="4" value="Mark as expelled" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="354" y="310" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6" target="10">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="6" value="remove from allStudents &amp;amp;&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="354" y="450" width="120" height="60" as="geometry"/>
+                <mxCell id="6" value="remove from allStudents" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="354" y="640" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="9" value="student" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
-                    <mxGeometry x="414" y="440" as="geometry"/>
+                    <mxGeometry x="414" y="490" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="4" target="10">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="411.81818181818176" y="370" as="sourcePoint"/>
+                        <mxPoint x="392.18181818181813" y="640" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="10" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;span style=&quot;color: rgb(240, 240, 240); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(42, 37, 47); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;add to expelledStudents&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="354" y="590" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="354" y="500" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="14" target="19">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Adding inquisitorial Squad" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="-453" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="373" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="19" target="23">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Student" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="24">
+                    <mxGeometry x="0.2453" y="-1" relative="1" as="geometry">
+                        <mxPoint x="1" y="6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="Make member of inquisitorial Squad" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-473" y="190" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="23" target="26">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-230" y="360"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="Student" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="27">
+                    <mxGeometry x="0.6486" y="1" relative="1" as="geometry">
+                        <mxPoint y="1" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="True" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="27">
+                    <mxGeometry x="-0.5303" y="2" relative="1" as="geometry">
+                        <mxPoint x="1" y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="31" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="23" target="30">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-650" y="360"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="False" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="31">
+                    <mxGeometry x="-0.5221" y="2" relative="1" as="geometry">
+                        <mxPoint x="1" y="-12" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="Is student Pure blood or Slytherin?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+                    <mxGeometry x="-453" y="320" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="26" target="34">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="makeMemberOfInquisitorialSquad" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-290" y="480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="showDialogBox" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-710" y="480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="set student.inquisitorialSquad = true" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-330" y="620" width="200" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
