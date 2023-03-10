@@ -540,6 +540,7 @@ function hackTheSystem() {
   systemHacked = true;
   console.log("System has now been hacked");
   allStudents.push(me);
+  hackBloodStatus();
   buildList();
 }
 
@@ -553,4 +554,29 @@ function explainCantExpell(student) {
     document.querySelector("#cannotBeExpelled").classList.remove("show");
     document.querySelector("#cannotBeExpelled .closebutton").removeEventListener("click", closeDigalog);
   }
+}
+
+function hackBloodStatus() {
+  allStudents.forEach((student) => {
+    if (student.bloodstatus === "Pure") {
+      student.bloodstatus = randomizeBloodStatus(student);
+    } else {
+      student.bloodstatus = makePureBlood(student);
+    }
+  });
+}
+
+function randomizeBloodStatus(student) {
+  let ranBloodNum = Math.floor(Math.random() * 3);
+  if (ranBloodNum === 0) {
+    return "Pure";
+  } else if (ranBloodNum === 1) {
+    return "Half";
+  } else {
+    return "Muggle";
+  }
+}
+
+function makePureBlood(student) {
+  return "Pure";
 }
