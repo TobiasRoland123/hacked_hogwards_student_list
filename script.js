@@ -8,6 +8,7 @@ let students;
 let studentsBloodStatus;
 
 const allStudents = new Array();
+const expelledStudents = new Array();
 
 const settings = {
   filterBy: "all",
@@ -28,7 +29,7 @@ const Student = {
   bloodstatus: "",
   responsibilities: "",
   prefect: false,
-  expelled: "",
+  expelled: "false",
 };
 
 // listens for all content to load, then calls function start
@@ -50,7 +51,6 @@ async function getData() {
   students = await respons.json();
   studentsBloodStatus = await responsBlood.json();
 
-  console.log(studentsBloodStatus);
   //   calls the clean data function and gives the function the data from the students variable
   cleanStudentData(students, studentsBloodStatus);
 
@@ -75,7 +75,7 @@ function cleanStudentData(students, studentsBloodStatus) {
   });
 
   //shows all students in the console
-  // console.table(allStudents);
+  console.table(allStudents);
 }
 //cleans all parts of student names, in smaller bites
 function cleanStudentNames(newStudent, student) {
@@ -249,14 +249,14 @@ function showDetails(student) {
   popUp.querySelector("[data-field=last_name]").textContent = student.lastName;
   popUp.querySelector("[data-field=house_img]").src = `images/house_crests/${student.houseImg}`;
   popUp.querySelector("[data-field=blood_status]").src = `images/bloodstatus_img/${student.bloodstatus}.png`;
-  // popUp.querySelector("[data-field=responsibilities]").textContent = student.responsibilities;
-  // popUp.querySelector("[data-field=expelled]").textContent = student.expelled;
+  popUp.querySelector("[data-field=expelled]").textContent = `Expelled status; ${checkIfExpelled(student)}`;
   popUp.querySelector("[data-field=prefect]").textContent = `Prefect status: ${checkIfPrefect(student)}`;
 
   popUp.querySelector('[data-action="set_prefect"]').addEventListener("click", clickPrefect);
-
+  popUp.querySelector('[data-action="expell_student"]').addEventListener("click", expellStudentClicked);
   popUp.querySelector('[data-action="close"]').addEventListener("click", () => {
     popUp.querySelector('[data-action="set_prefect"]').removeEventListener("click", clickPrefect);
+    popUp.querySelector('[data-action="expell_student"]').removeEventListener("click", expellStudentClicked);
     popUp.style.display = "none";
   });
 
@@ -266,10 +266,30 @@ function showDetails(student) {
     } else {
       tryToMakeAPrefect(student);
     }
-    // buildList();
+    //  Updates the status of prefect in view
     popUp.querySelector("[data-field=prefect]").textContent = `Prefect status: ${checkIfPrefect(student)}`;
   }
+  function expellStudentClicked() {
+    expellStudent(student);
+
+    popUp.querySelector("[data-field=expelled]").textContent = `Expelled status; ${checkIfExpelled(student)}`;
+  }
 }
+
+function expellStudent(student) {
+  student.expelled = true;
+  addToExpelledAndRemoveFromAll(student);
+  // document.querySelector("#popup").style.display = "none";
+  buildList();
+}
+
+function addToExpelledAndRemoveFromAll(student) {
+  expelledStudents.push(allStudents.shift(student));
+}
+
+// function removeFromList(student){
+
+// }
 
 // try to make student a prefect
 function tryToMakeAPrefect(selectedStudent) {
@@ -292,8 +312,6 @@ function tryToMakeAPrefect(selectedStudent) {
   }
   function removeOther(other) {
     // ask user to remove or ignore other
-    // console.log(`other is: _${other.firstName}_`);
-
     document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse").classList.add("show");
     document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse .closebutton").addEventListener("click", closeDigalog);
     document
@@ -318,9 +336,6 @@ function tryToMakeAPrefect(selectedStudent) {
 
       closeDigalog();
     }
-
-    // if ignore - do nothing
-    // if remove other:
   }
 
   function removePrefect(student) {
@@ -419,8 +434,10 @@ function setFilter(filter, filterType) {
 function filterList() {
   // if filtertype is equal to house run through house filter
   if (settings.filterType === "all") {
-    console.log(settings.filterBy);
+    // console.log(settings.filterBy);
     return allStudents;
+  } else if (settings.filterType === "expelled") {
+    return expelledStudents;
   }
   // if the studentType is none of the above then just return allStudents
   else {
@@ -438,6 +455,14 @@ function filterStudents(student) {
 
 function checkIfPrefect(student) {
   if (student.prefect === true) {
+    return `True`;
+  } else {
+    return `False`;
+  }
+}
+
+function checkIfExpelled(student) {
+  if (student.expelled === true) {
     return `True`;
   } else {
     return `False`;
