@@ -56,6 +56,7 @@ function start() {
   document.querySelectorAll("#filter_select optgroup option").forEach((option) => option.addEventListener("click", selectFilter));
   document.querySelectorAll('[data-action="sort"]').forEach((button) => button.addEventListener("click", selectSort));
   getData();
+  document.querySelector("#click_to_hack").addEventListener("click", hackTheSystem);
 }
 
 /* this function fetches the data from the json url, and puts 
@@ -537,6 +538,7 @@ function checkIfMember(student) {
 
 function hackTheSystem() {
   systemHacked = true;
+  console.log("System has now been hacked");
   allStudents.push(me);
   buildList();
 }
