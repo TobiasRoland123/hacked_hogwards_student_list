@@ -290,7 +290,11 @@ function showDetails(student) {
     popUp.querySelector("[data-field=prefect]").textContent = `Prefect status: ${checkIfPrefect(student)}`;
   }
   function expellStudentClicked() {
-    expellStudent(student);
+    if (student.expelled === "noWay") {
+      explainCantExpell(student);
+    } else {
+      expellStudent(student);
+    }
 
     popUp.querySelector("[data-field=expelled]").textContent = `Expelled status; ${checkIfExpelled(student)}`;
   }
@@ -535,4 +539,16 @@ function hackTheSystem() {
   systemHacked = true;
   allStudents.push(me);
   buildList();
+}
+
+function explainCantExpell(student) {
+  document.querySelector("#cannotBeExpelled").classList.add("show");
+  document.querySelector("#cannotBeExpelled .closebutton").addEventListener("click", closeDigalog);
+
+  document.querySelector("#cannotBeExpelled .student1_name").textContent = student.firstName;
+
+  function closeDigalog() {
+    document.querySelector("#cannotBeExpelled").classList.remove("show");
+    document.querySelector("#cannotBeExpelled .closebutton").removeEventListener("click", closeDigalog);
+  }
 }
