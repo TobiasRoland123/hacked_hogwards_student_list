@@ -11,7 +11,7 @@ const allStudents = new Array();
 
 const settings = {
   filterBy: "all",
-  filterType: "",
+  filterType: "all",
   sortBy: "name",
   sortDir: "asc",
 };
@@ -233,7 +233,7 @@ function displayStudent(student) {
   clone.querySelector("[data-field=last_name]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
 
-  clone.querySelector(".student").addEventListener("click", () => showDetails(student));
+  clone.querySelector(".student img").addEventListener("click", () => showDetails(student));
 
   document.querySelector("#student_list").appendChild(clone);
 }
@@ -250,10 +250,12 @@ function showDetails(student) {
   popUp.querySelector("[data-field=blood_status]").src = `images/bloodstatus_img/${student.bloodstatus}.png`;
   // popUp.querySelector("[data-field=responsibilities]").textContent = student.responsibilities;
   // popUp.querySelector("[data-field=expelled]").textContent = student.expelled;
+  popUp.querySelector("[data-field=prefect]").textContent = `Prefect status: ${checkIfPrefect(student)}`;
 
   popUp.querySelector('[data-action="set_prefect"]').addEventListener("click", clickPrefect);
 
-  // Make prefect
+  popUp.querySelector('[data-action="close"]').addEventListener("click", () => (popUp.style.display = "none"));
+
   function clickPrefect() {
     if (student.prefect === true) {
       student.prefect = false;
@@ -261,8 +263,66 @@ function showDetails(student) {
       tryToMakeAPrefect(student);
     }
     // buildList();
+    showDetails(student);
   }
-  popUp.querySelector('[data-action="close"]').addEventListener("click", () => (popUp.style.display = "none"));
+}
+
+// try to make student a prefect
+function tryToMakeAPrefect(selectedStudent) {
+  const prefects = allStudents.filter((student) => student.prefect);
+  const numberOfPrefects = prefects.length;
+  const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
+
+  // if there is another of same house
+  if (other !== undefined) {
+    if (other.gender === selectedStudent.gender) {
+      removeOther(other);
+    } else {
+      makePrefect(selectedStudent);
+    }
+  } else {
+    makePrefect(selectedStudent);
+  }
+  function removeOther(other) {
+    // ask user to remove or ignore other
+    console.log(`other is: _${other.firstName}_`);
+
+    document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse").classList.add("show");
+    document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse .closebutton").addEventListener("click", closeDigalog);
+    document
+      .querySelector("#onlyOnePrefectFromEachGenderFromEachHouse [data-action=remove1]")
+      .addEventListener("click", clickRemoveOther);
+
+    document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse .student1").textContent = other.firstName;
+
+    function closeDigalog() {
+      document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse").classList.remove("show");
+      document
+        .querySelector("#onlyOnePrefectFromEachGenderFromEachHouse .closebutton")
+        .removeEventListener("click", closeDigalog);
+      document
+        .querySelector("#onlyOnePrefectFromEachGenderFromEachHouse [data-action=remove1]")
+        .removeEventListener("click", clickRemoveOther);
+    }
+
+    function clickRemoveOther() {
+      removePrefect(other);
+      makePrefect(selectedStudent);
+
+      closeDigalog();
+    }
+
+    // if ignore - do nothing
+    // if remove other:
+  }
+
+  function removePrefect(student) {
+    student.prefect = false;
+  }
+
+  function makePrefect(student) {
+    student.prefect = true;
+  }
 }
 
 /*A new list is build from the critiria from */
@@ -274,39 +334,6 @@ function buildList() {
 
   // displays currentList
   displayList(currentList);
-}
-
-// this function tries to make a prefect if it's possible
-function tryToMakeAPrefect(selectedStudent) {
-  const prefects = allStudents.filter((student) => student.prefect);
-  console.log(`these are the prefects: `, prefects);
-  const numberOfPrefects = prefects.length;
-  console.log(`number of prefects is: ${numberOfPrefects}`);
-  const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
-
-  // if there is another of same type
-  if (other !== undefined) {
-    console.log("there can be only one prefect of each house");
-    removeOther(other);
-  } else if (numberOfPrefects >= 2) {
-    console.log("there can be only be two prefects!");
-    removeAorB(prefects[0], prefects[1]);
-  } else {
-    makePrefect(selectedStudent);
-  }
-}
-
-function removeAorB(prefectA, prefectB) {
-  console.log(`you should remove ${prefectA.firstName} or ${prefectB.fullname}`);
-}
-
-function removeOther(other) {
-  console.log(`You should remove ${other.firstName}`);
-}
-
-function makePrefect(student) {
-  student.prefect = true;
-  console.log(`${student.firstName} prefect status is now:`, student.prefect);
 }
 
 // Here the the sortBy variable gets the value of the button that was pressed, and same with sortDir
@@ -400,4 +427,12 @@ function filterStudents(student) {
   /* because the student object doesn't have a settings property we need to use [] and 
   put it inside of  that to choose the exact porperty*/
   return student[`${settings.filterType}`] === settings.filterBy;
+}
+
+function checkIfPrefect(student) {
+  if (student.prefect === true) {
+    return `True`;
+  } else {
+    return `False`;
+  }
 }
