@@ -12,7 +12,7 @@ const allStudents = new Array();
 const settings = {
   filterBy: "all",
   filterType: "all",
-  sortBy: "name",
+  sortBy: "firstName",
   sortDir: "asc",
 };
 
@@ -53,7 +53,8 @@ async function getData() {
   console.log(studentsBloodStatus);
   //   calls the clean data function and gives the function the data from the students variable
   cleanStudentData(students, studentsBloodStatus);
-  displayList(allStudents);
+
+  buildList();
 }
 
 function cleanStudentData(students, studentsBloodStatus) {
@@ -254,7 +255,10 @@ function showDetails(student) {
 
   popUp.querySelector('[data-action="set_prefect"]').addEventListener("click", clickPrefect);
 
-  popUp.querySelector('[data-action="close"]').addEventListener("click", () => (popUp.style.display = "none"));
+  popUp.querySelector('[data-action="close"]').addEventListener("click", () => {
+    popUp.querySelector('[data-action="set_prefect"]').removeEventListener("click", clickPrefect);
+    popUp.style.display = "none";
+  });
 
   function clickPrefect() {
     if (student.prefect === true) {
@@ -263,16 +267,19 @@ function showDetails(student) {
       tryToMakeAPrefect(student);
     }
     // buildList();
-    showDetails(student);
+    popUp.querySelector("[data-field=prefect]").textContent = `Prefect status: ${checkIfPrefect(student)}`;
   }
 }
 
 // try to make student a prefect
 function tryToMakeAPrefect(selectedStudent) {
   const prefects = allStudents.filter((student) => student.prefect);
-  const numberOfPrefects = prefects.length;
-  const other = prefects.filter((student) => student.house === selectedStudent.house).shift();
-
+  // const numberOfPrefects = prefects.length;
+  const other = prefects
+    .filter((student) => student.house === selectedStudent.house && student.gender === selectedStudent.gender)
+    .shift();
+  console.log(`prefects:`, prefects);
+  console.log(`other:`, other);
   // if there is another of same house
   if (other !== undefined) {
     if (other.gender === selectedStudent.gender) {
@@ -285,7 +292,7 @@ function tryToMakeAPrefect(selectedStudent) {
   }
   function removeOther(other) {
     // ask user to remove or ignore other
-    console.log(`other is: _${other.firstName}_`);
+    // console.log(`other is: _${other.firstName}_`);
 
     document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse").classList.add("show");
     document.querySelector("#onlyOnePrefectFromEachGenderFromEachHouse .closebutton").addEventListener("click", closeDigalog);
