@@ -9,6 +9,7 @@ let studentsBloodStatus;
 
 const allStudents = new Array();
 const expelledStudents = new Array();
+let systemHacked = false;
 
 const settings = {
   filterBy: "all",
@@ -30,6 +31,21 @@ const Student = {
   responsibilities: "",
   prefect: false,
   expelled: "false",
+};
+
+const me = {
+  firstName: "Samuel",
+  lastName: "Uyet",
+  middleName: "Tobias",
+  nickName: "Tobs",
+  image: "student_placeholder_image.jpg",
+  house: "Gryffindor",
+  houseImg: "Gryffindor.svg",
+  gender: "Boy",
+  bloodstatus: "",
+  responsibilities: "No responsibilities",
+  prefect: false,
+  expelled: "noWay",
 };
 
 // listens for all content to load, then calls function start
@@ -483,6 +499,8 @@ function filterList() {
 
 // this function return only the students who belongs to the house equal to settings.filterBy
 function filterStudents(student) {
+  console.log(`${student.firstName} filterType: `, student[`${settings.filterType}`]);
+  console.log(`filterBy: `, settings.filterBy);
   // this returns if student[settings.filterType] is equal to the value we want to filter by
   /* because the student object doesn't have a settings property we need to use [] and 
   put it inside of  that to choose the exact porperty*/
@@ -511,4 +529,10 @@ function checkIfMember(student) {
   } else {
     return `No responsibilities`;
   }
+}
+
+function hackTheSystem() {
+  systemHacked = true;
+  allStudents.push(me);
+  buildList();
 }
