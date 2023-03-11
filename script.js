@@ -272,12 +272,12 @@ function showDetails(student) {
 
   popUp.querySelector('[data-action="set_prefect"]').addEventListener("click", clickPrefect);
   popUp.querySelector('[data-action="expell_student"]').addEventListener("click", expellStudentClicked);
-  popUp.querySelector('[data-action="make_is_member"]').addEventListener("click", makeMemberClicked);
+  popUp.querySelector('[data-action="make_a_member"]').addEventListener("click", makeMemberClicked);
 
   popUp.querySelector('[data-action="close"]').addEventListener("click", () => {
     popUp.querySelector('[data-action="set_prefect"]').removeEventListener("click", clickPrefect);
     popUp.querySelector('[data-action="expell_student"]').removeEventListener("click", expellStudentClicked);
-    popUp.querySelector('[data-action="make_is_member"]').removeEventListener("click", makeMemberClicked);
+    popUp.querySelector('[data-action="make_a_member"]').removeEventListener("click", makeMemberClicked);
     popUp.style.display = "none";
   });
 
@@ -342,7 +342,27 @@ function tryToMakeStudentMember(student) {
 }
 
 function makeMemberOfInquisitorialSquad(student) {
-  student.responsibilities = "Inquisitorial Squad";
+  console.log(student);
+  if (systemHacked === true) {
+    student.responsibilities = "Inquisitorial Squad";
+    setTimeout(notAMemberAnyway, 5000);
+
+    function notAMemberAnyway() {
+      console.log(student);
+      student.responsibilities = "No responsibilities";
+      console.log(student);
+      document.querySelector("#inquisitorial_squad_hacked").classList.add("show");
+      document.querySelector("#inquisitorial_squad_hacked .closebutton").addEventListener("click", closeDigalog);
+      document.querySelector("#inquisitorial_squad_hacked .student1_name").textContent = student.firstName;
+
+      function closeDigalog() {
+        document.querySelector("#inquisitorial_squad_hacked").classList.remove("show");
+        document.querySelector("#inquisitorial_squad_hacked .closebutton").removeEventListener("click", closeDigalog);
+      }
+    }
+  } else {
+    student.responsibilities = "Inquisitorial Squad";
+  }
 }
 
 function tellWhyStudentCannotBeMember(student) {
@@ -504,8 +524,8 @@ function setFilter(filter, filterType) {
 
 // this function decides which filter allStudents should be run through
 function filterList() {
-  console.log("filterType: ", settings.filterType);
-  console.log("filterBy: ", settings.filterBy);
+  // console.log("filterType: ", settings.filterType);
+  // console.log("filterBy: ", settings.filterBy);
   // if filtertype is equal to house run through house filter
   if (settings.filterType === "all") {
     // console.log(settings.filterBy);
