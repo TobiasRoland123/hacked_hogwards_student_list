@@ -10,6 +10,13 @@ let studentsBloodStatus;
 const allStudents = new Array();
 const expelledStudents = new Array();
 let systemHacked = false;
+let numOfGryffindor = 0;
+let numOfHufflepuff = 0;
+let numOfRavenclaw = 0;
+let numOfSlytherin = 0;
+let numOfExpelled = 0;
+let numOfNonExpelled = 0;
+let numOfCurrentlyDisplayed = 0;
 
 const settings = {
   filterBy: "all",
@@ -237,11 +244,24 @@ function cleanBloodStatus(newStudent, student, studentsBloodStatus) {
 }
 function displayList(students) {
   document.querySelector("#student_list").innerHTML = "";
+  setNumbersToZero();
 
   students.forEach(displayStudent);
 }
 
+function displayNumbers() {
+  document.querySelector("#gryffindor_num").textContent = numOfGryffindor;
+  document.querySelector("#hufflepuff_num").textContent = numOfHufflepuff;
+  document.querySelector("#ravenclaw_num").textContent = numOfRavenclaw;
+  document.querySelector("#slytherin_num").textContent = numOfSlytherin;
+
+  document.querySelector("#currently_displayed_num").textContent = numOfCurrentlyDisplayed;
+  document.querySelector("#expelled_num").textContent = numOfExpelled;
+  document.querySelector("#non_expelled_num").textContent = numOfNonExpelled;
+}
+
 function displayStudent(student) {
+  // numOfCurrentlyDisplayed++;
   // create a clone of student template
   const clone = document.querySelector("#student_template").content.cloneNode(true);
 
@@ -322,15 +342,13 @@ function removeFromAllAndAddToExpelled(student) {
   for (let i = 0; i < allStudents.length; i++) {
     if (allStudents[i].expelled === true) {
       let removedStudent = allStudents.splice(i, 1);
-      console.log("removed student: ", removedStudent);
+
       removedStudent = removedStudent.shift();
-      console.log("removed student after shift: ", removedStudent);
+
       expelledStudents.push(removedStudent);
       console.log("expelled Students :", expelledStudents);
     }
   }
-
-  // expelledStudents.push(allStudents.shift(student));
 }
 
 function tryToMakeStudentMember(student) {
@@ -441,13 +459,47 @@ function buildList() {
   if (systemHacked === true) {
     hackBloodStatus();
   }
+
+  setHouseNumbers();
+
+  console.log(
+    `Gryffindor: ${numOfGryffindor}
+    Hufflepuff: ${numOfHufflepuff}
+    Ravenclaw: ${numOfRavenclaw}
+    Slytherin: ${numOfSlytherin}
+    Num of NonExpelled: ${numOfNonExpelled}
+    Num of expelled: ${numOfExpelled}
+    Currently displayed: ${numOfCurrentlyDisplayed}`
+  );
+
   // Creates a veriable "currentList" and gives it the filtered value of allStudents
   const currentList = filterList(allStudents);
+  numOfCurrentlyDisplayed = currentList.length;
+  displayNumbers();
   // Creates variable "sortedList" and gives it the value of the sorted version of currentList
   const sortedList = sortlist(currentList);
 
   // displays currentList
   displayList(currentList);
+}
+function setHouseNumbers() {
+  allStudents.forEach((student) => {
+    numOfNonExpelled++;
+    if (student.house === "Gryffindor") {
+      console.log("before ", numOfGryffindor);
+      numOfGryffindor++;
+      console.log("After ", numOfGryffindor);
+    } else if (student.house === "Hufflepuff") {
+      numOfHufflepuff++;
+    } else if (student.house === "Ravenclaw") {
+      numOfRavenclaw++;
+    } else if (student.house === "Slytherin") {
+      numOfSlytherin++;
+    }
+  });
+  expelledStudents.forEach((expelledStudent) => {
+    numOfExpelled++;
+  });
 }
 
 // Here the the sortBy variable gets the value of the button that was pressed, and same with sortDir
@@ -541,8 +593,8 @@ function filterList() {
 
 // this function return only the students who belongs to the house equal to settings.filterBy
 function filterStudents(student) {
-  console.log(`${student.firstName} filterType: `, student[`${settings.filterType}`]);
-  console.log(`filterBy: `, settings.filterBy);
+  // console.log(`${student.firstName} filterType: `, student[`${settings.filterType}`]);
+  // console.log(`filterBy: `, settings.filterBy);
   // this returns if student[settings.filterType] is equal to the value we want to filter by
   /* because the student object doesn't have a settings property we need to use [] and 
   put it inside of  that to choose the exact porperty*/
@@ -620,4 +672,14 @@ function randomizeBloodStatus(student) {
 
 function makePureBlood(student) {
   return "Pure";
+}
+
+function setNumbersToZero() {
+  numOfGryffindor = 0;
+  numOfHufflepuff = 0;
+  numOfRavenclaw = 0;
+  numOfSlytherin = 0;
+  numOfExpelled = 0;
+  numOfNonExpelled = 0;
+  numOfCurrentlyDisplayed = 0;
 }
