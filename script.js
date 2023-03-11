@@ -574,11 +574,15 @@ function checkIfMember(student) {
 }
 
 function hackTheSystem() {
-  systemHacked = true;
-  console.log("System has now been hacked");
-  allStudents.push(me);
-  hackBloodStatus();
-  buildList();
+  if (systemHacked === true) {
+    console.log("system is already hacked");
+  } else {
+    systemHacked = true;
+    console.log("System has now been hacked");
+    allStudents.push(me);
+    hackBloodStatus();
+    buildList();
+  }
 }
 
 function explainCantExpell(student) {
