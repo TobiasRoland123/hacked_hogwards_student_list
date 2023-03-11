@@ -418,6 +418,9 @@ function tryToMakeAPrefect(selectedStudent) {
 
 /*A new list is build from the critiria from */
 function buildList() {
+  if (systemHacked === true) {
+    hackBloodStatus();
+  }
   // Creates a veriable "currentList" and gives it the filtered value of allStudents
   const currentList = filterList(allStudents);
   // Creates variable "sortedList" and gives it the value of the sorted version of currentList
