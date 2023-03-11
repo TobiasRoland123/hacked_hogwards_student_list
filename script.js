@@ -312,13 +312,25 @@ function showDetails(student) {
 
 function expellStudent(student) {
   student.expelled = true;
-  addToExpelledAndRemoveFromAll(student);
+
+  removeFromAllAndAddToExpelled(student);
   // document.querySelector("#popup").style.display = "none";
   buildList();
 }
 
-function addToExpelledAndRemoveFromAll(student) {
-  expelledStudents.push(allStudents.shift(student));
+function removeFromAllAndAddToExpelled(student) {
+  for (let i = 0; i < allStudents.length; i++) {
+    if (allStudents[i].expelled === true) {
+      let removedStudent = allStudents.splice(i, 1);
+      console.log("removed student: ", removedStudent);
+      removedStudent = removedStudent.shift();
+      console.log("removed student after shift: ", removedStudent);
+      expelledStudents.push(removedStudent);
+      console.log("expelled Students :", expelledStudents);
+    }
+  }
+
+  // expelledStudents.push(allStudents.shift(student));
 }
 
 function tryToMakeStudentMember(student) {
@@ -489,6 +501,8 @@ function setFilter(filter, filterType) {
 
 // this function decides which filter allStudents should be run through
 function filterList() {
+  console.log("filterType: ", settings.filterType);
+  console.log("filterBy: ", settings.filterBy);
   // if filtertype is equal to house run through house filter
   if (settings.filterType === "all") {
     // console.log(settings.filterBy);
