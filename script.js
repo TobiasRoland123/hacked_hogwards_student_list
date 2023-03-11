@@ -264,7 +264,7 @@ function displayStudent(student) {
   // numOfCurrentlyDisplayed++;
   // create a clone of student template
   const clone = document.querySelector("#student_template").content.cloneNode(true);
-
+  clone.querySelector(".student").classList.add(`${student.house}_color`);
   //set all the date for the student template clone
   clone.querySelector("[data-field=image]").src = "images/" + student.image;
   clone.querySelector("[data-field=first_name]").textContent = student.firstName;
